@@ -1,0 +1,24 @@
+﻿
+
+
+@model Ahmad.Models.CrudDragonModel
+
+<h2>Edit</h2>
+
+<form asp-action="Edit">
+    <div class="form-group">
+        <input type="hidden" asp-for="Dragon.Id" />
+        <label asp-for="Dragon.Name" class="control-label"></label>
+        <input asp-for="Dragon.Name" class="form-control" />
+        <span asp-validation-for="Dragon.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Dragon.RoomId" class="control-label"></label>
+        @Html.DropDownList("Dragon.RoomId", new SelectList(Model.Rooms,"Id","Name"), "Select Room", new { @class = "form-control" })
+        <span asp-validation-for="Dragon.RoomId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-action="Index">Back to List</a>
+    </div>
+</form>

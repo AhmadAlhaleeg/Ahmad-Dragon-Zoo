@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Dragon>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center" style="margin-top: 100px; font-size: 30px">
+    <strong style="font-size: 50px">Welcome</strong>
+    <p style="margin-top: 100px;">Which dragon are you looking for?</p>
+
+    @Html.DropDownList("dragonId", new SelectList(Model,"Id","Name"), "Select Dragon")
+    <button type="button" onclick="getName()" id="update-button" class="btn btn-primary">Find</button>
+    <p style ="margin-top: 80px; "><strong style="font-size: 45px" id="name"></strong></p>
+
+</div>
+
+<script>
+    function getName () {
+        var inputData = {
+            dragonId: $("#dragonId").val(),
+        };
+
+        $.ajax({
+            url: "/Home/FindRoom", 
+            type: "POST", 
+            data: inputData, 
+            success: function (data) {
+                if (data.roomName == '')
+                    return;
+                document.getElementById('name').innerHTML = 'The Dragon is in room ' + data.roomName
+            }
+        });
+    }
+</script>
